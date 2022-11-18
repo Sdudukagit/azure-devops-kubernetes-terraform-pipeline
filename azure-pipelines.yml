@@ -41,12 +41,12 @@ stages:
     - deployment: QADeployment
       pool:
         vmImage: ubuntu-latest
-        environment: QA
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - bash: echo QADeployJob
+      environment: QA
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - bash: echo QADeployJob
     - job: SecondJob
       steps:
       - bash: echo QADeploy SecondJob
@@ -59,12 +59,12 @@ stages:
     - deployment: PreProdDeployment
       pool:
         vmImage: ubuntu-latest
-        environment: Pre-Prod
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - bash: echo PreProdDeployJob
+      environment: Pre-Prod
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - bash: echo PreProdDeployJob
     - job: SecondJob
       steps:
       - bash: echo PreProdDeploy SecondJob
@@ -78,12 +78,12 @@ stages:
     - deployment: ProdDeployment
       pool:
         vmImage: ubuntu-latest
-        environment: Prod
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - bash: echo ProdDeployJob
+      environment: Prod
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - bash: echo ProdDeployJob
     - job: SecondJob
       steps:
       - bash: echo ProdDeploy SecondJob  
