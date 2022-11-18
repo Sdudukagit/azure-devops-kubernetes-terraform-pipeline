@@ -18,15 +18,20 @@ stages:
     - job: SecondJob
       steps:
       - bash: echo Build SecondJob
+
   - stage: DevDeploy
     dependsOn: Build
     jobs:
-    - job: DevDeployJob
-      steps:
-      - bash: echo DevDeployJob
-    - job: SecondJob
-      steps:
-      - bash: echo DevDeploy SecondJob  
+      - deployment: DevDeployment
+        pool:
+          vmImage: ubuntu-latest
+        environment: Dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - bash: echo DevDeployJob
+
   - stage: QADeploy
     dependsOn: Build
     jobs:
@@ -36,6 +41,7 @@ stages:
     - job: SecondJob
       steps:
       - bash: echo QADeploy SecondJob
+
   - stage: PreProdDeploy
     dependsOn:
     - DevDeploy
@@ -46,7 +52,8 @@ stages:
       - bash: echo PreProdDeployJob
     - job: SecondJob
       steps:
-      - bash: echo PreProdDeploy SecondJob      
+      - bash: echo PreProdDeploy SecondJob
+
   - stage: ProdDeploy
     dependsOn:
     - DevDeploy
